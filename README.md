@@ -21,6 +21,10 @@ A quick-capture companion app for Obsidian (Android). It only captures — organ
 
 Run `manual-build/build-apk.sh`. The signing key is not in this repository and is kept separately; a package signed with a different key cannot upgrade an existing install.
 
+## License
+
+MIT — see [LICENSE](LICENSE).
+
 ## Built with AI assistance
 
 This project was developed with the help of an AI assistant (Claude, by Anthropic), working under human direction. The owner set the goals, specified and revised the features, ran every test on a real device, and made the final calls; the AI wrote the code and the documentation under that direction. It is noted here so the provenance of the work is clear.
