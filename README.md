@@ -1,5 +1,7 @@
 # Ob速记
 
+English: [README.en.md](README.en.md)
+
 Obsidian 的伴生速记应用（Android）。只做快速记录入口，整理与回看归 Obsidian 本体。
 
 - 全屏编辑器 + 控制中心磁贴唤起的浮窗小编窗
