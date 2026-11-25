@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v67/1.41: QuickActivity floating-card exit animation.
+     Fade out + a slight sink (2% of the card's own height,
+     ~11dp), 160ms decelerate. Plays on every finish() path —
+     closeQuick after a send, back at the root, expand-to-full —
+     without delaying any of them. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:shareInterpolator="true">
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="160" />
+    <translate
+        android:fromYDelta="0"
+        android:toYDelta="2%"
+        android:duration="160" />
+</set>

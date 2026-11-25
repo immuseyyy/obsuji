@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.OPEN_DOCUMENT" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".ShellApp"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Ob速记"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@android:style/Theme.Material.NoActionBar"
+        tools:targetApi="34">
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- v66/1.40: QuickActivity gets its OWN taskAffinity, apart
+             from the app default (the package name, which MainActivity
+             uses). Until now both activities shared one task, so the
+             QS tile's NEW_TASK launch raised the whole task: the
+             backgrounded MainActivity flashed into the foreground
+             first and the card opened on top of it. With a separate
+             affinity, NEW_TASK resolves to the quick card's own task
+             only — the main app's task is never raised, the card
+             floats over whatever app the user is actually in, and
+             finishing the card returns straight to that app. -->
+        <!-- v77/1.51: QuickActivity is also the system share target.
+             ACTION_SEND with text/plain or image/* lands here, so
+             sharing from a browser / chat app offers Ob速记 and
+             opens the floating card with the shared content in the
+             body. SEND_MULTIPLE is deliberately not declared: a
+             multi-item share simply does not offer this target.
+             MainActivity stays share-free — the launcher icon
+             always opens the plain full-screen editor. -->
+        <activity
+            android:name=".QuickActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity="app.inboxeditor.shell.quick"
+            android:theme="@style/QuickTheme"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".EditorTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_qs_tile"
+            android:label="Ob速记"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>

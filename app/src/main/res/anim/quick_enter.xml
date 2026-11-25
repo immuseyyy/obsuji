@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v67/1.41: QuickActivity floating-card enter animation.
+     Fade in + rise from slightly below + a barely-there scale-up
+     (0.98 -> 1), 220ms on a decelerate curve. The rise uses a
+     percentage of the window's own height: the card is ~76% of a
+     ~740dp screen (~560dp), so 4% of the card is ~22dp — the
+     ~24dp lift this was specced at, without hard-coding pixels.
+     Pure window animation: it runs on the window surface, never
+     gates input, and touches none of the page's focus/keyboard
+     timing (onWindowFocusChanged still fires as before). -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:shareInterpolator="true">
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="220" />
+    <translate
+        android:fromYDelta="4%"
+        android:toYDelta="0"
+        android:duration="220" />
+    <scale
+        android:fromXScale="0.98"
+        android:toXScale="1.0"
+        android:fromYScale="0.98"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="220" />
+</set>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- v56: QuickActivity's floating-card theme. Translucent, so the
+         app behind the card stays visible under the window dim; the
+         card itself is the WebView, clipped to rounded corners by
+         QuickActivity. Same Material base as the app theme so the
+         page's chrome colours line up. -->
+    <style name="QuickTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- v67/1.41: the floating card gets a window enter/exit
+             animation (fade + slight rise on the way in, fade +
+             slight sink on the way out). MainActivity's theme is
+             untouched — the full-screen open stays instant. -->
+        <item name="android:windowAnimationStyle">@style/QuickWindowAnimation</item>
+    </style>
+
+    <style name="QuickWindowAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/quick_enter</item>
+        <item name="android:windowExitAnimation">@anim/quick_exit</item>
+    </style>
+</resources>
