@@ -1,22 +1,26 @@
-# Ob速记
+# ObSuji
 
-English: [README.en.md](README.en.md)
+中文版： [README.zh-CN.md](README.zh-CN.md)
 
-Obsidian 的伴生速记应用（Android）。只做快速记录入口，整理与回看归 Obsidian 本体。
+A quick-capture companion app for Obsidian (Android). It only captures — organizing and reviewing stay in Obsidian itself.
 
-- 全屏编辑器 + 控制中心磁贴唤起的浮窗小编窗
-- 发送时把条目按模板写进库内目标笔记，附件发送时才复制进附件文件夹
-- 录音胶囊：停止进正文待发，发送直写笔记
-- 系统分享入口：其他 App 分享文字/图片进浮窗
-- 数据存应用专属存储，草稿、历史（200 条）、待发附件登记都在本地
+- Full-screen editor, plus a floating quick-capture panel summoned from a Quick Settings tile
+- On send, entries are written into a target note in the vault using a template; attachments are copied into the attachment folder only at send time
+- Recording capsule: Stop stages the take in the draft, Send writes it straight into the note
+- System share target: share text or a single image from other apps into the floating panel
+- Drafts, history (200 entries), and the pending-attachment registry live in app-specific storage
 
-## 结构
+## Layout
 
-- `app/src/main/java/` 壳层（Kotlin）：WebView 容器、全屏/浮窗两个 Activity、原生桥、磁贴
-- `app/src/main/assets/editor.html` 编辑器本体（单文件）
-- `manual-build/` 手工出包链（aapt2 + kotlinc + d8 + apksigner），不走 Gradle
-- `icon-master.svg` 图标母版
+- `app/src/main/java/` — the shell (Kotlin): WebView host, full-screen and floating activities, native bridge, Quick Settings tile
+- `app/src/main/assets/editor.html` — the editor itself (single file)
+- `manual-build/` — manual build chain (aapt2 + kotlinc + d8 + apksigner), no Gradle
+- `icon-master.svg` — icon master artwork
 
-## 出包
+## Building
 
-跑 `manual-build/build-apk.sh`。签名钥匙不在本仓库内，单独保管；没有钥匙打出的包无法覆盖升级现有安装。
+Run `manual-build/build-apk.sh`. The signing key is not in this repository and is kept separately; a package signed with a different key cannot upgrade an existing install.
+
+## Built with AI assistance
+
+This project was developed with the help of an AI assistant (Claude, by Anthropic), working under human direction. The owner set the goals, specified and revised the features, ran every test on a real device, and made the final calls; the AI wrote the code and the documentation under that direction. It is noted here so the provenance of the work is clear.
